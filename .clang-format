@@ -1,0 +1,58 @@
+---
+Language: Cpp
+BasedOnStyle: LLVM
+
+# Indentation
+IndentWidth: 4
+TabWidth: 4
+ContinuationIndentWidth: 8
+AccessModifierOffset: -4
+#IndentPragmas: true # requires v12.0
+
+# Includes
+# group ordering is:
+#   1. main header
+#   2. double-quotes includes
+#   3. caesar includes
+#   4. all other angle bracket includes
+SortIncludes: true
+IncludeBlocks: Regroup
+IncludeIsMainSourceRegex: '(\.cu)$'
+IncludeCategories:
+    - Regex: '^"'
+      Priority: 1
+    - Regex: '^<caesar/'
+      Priority: 2
+
+# Line breaks
+AlwaysBreakTemplateDeclarations: Yes
+AlwaysBreakAfterReturnType: All
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+BinPackParameters: false
+
+# Braces
+BreakBeforeBraces: Custom
+BraceWrapping:
+    AfterCaseLabel: false
+    AfterClass: false
+    AfterControlStatement: Never
+    AfterEnum: false
+    AfterFunction: true
+    AfterNamespace: false
+    AfterStruct: false
+    AfterUnion: false
+    BeforeCatch: false
+    BeforeElse: false
+    BeforeLambdaBody: false
+    BeforeWhile: false
+    SplitEmptyFunction: false
+    SplitEmptyNamespace: true
+    SplitEmptyRecord: false
+
+# Spaces
+SpaceAfterTemplateKeyword: false
+PointerAlignment: Left
+
+# Misc
+AllowShortCaseLabelsOnASingleLine: true
+...
