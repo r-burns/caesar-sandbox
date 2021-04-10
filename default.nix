@@ -22,7 +22,6 @@ stdenv.mkDerivation rec {
     cmake
   ];
   buildInputs = [
-    eigen
     mdspan
     pybind11-mdspan
   ] ++ (with python3.pkgs; [

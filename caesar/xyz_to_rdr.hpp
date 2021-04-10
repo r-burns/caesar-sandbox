@@ -2,7 +2,6 @@
 
 #include "Orbit.hpp"
 
-#include <Eigen/Dense>
 #include <utility>
 
 namespace caesar {
@@ -35,7 +34,7 @@ bisect(Func f, double a, double b) noexcept
 }
 
 inline auto
-xyz_to_rdr(const Eigen::Vector3d& xyz, const Orbit& orbit)
+xyz_to_rdr(const Vector3d& xyz, const Orbit& orbit)
 {
 
     // not actually, but has the same root for zero-doppler
@@ -52,7 +51,7 @@ xyz_to_rdr(const Eigen::Vector3d& xyz, const Orbit& orbit)
     const auto t = bisect(doppler_eqn, t0, tf);
 
     // get corresponding platform position and slant range
-    const Eigen::Vector3d platform_pos = orbit(t).head<3>();
+    const Vector3d platform_pos = orbit(t).head<3>();
     const double slant_range = (xyz - platform_pos).norm();
 
     // return results

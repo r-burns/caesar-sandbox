@@ -1,11 +1,19 @@
 #include <caesar/Orbit.hpp>
 #include <caesar/bilerp.hpp>
+#include <caesar/vector.hpp>
 #include <caesar/xyz_to_rdr.hpp>
 
 #include <pybind11/complex.h>
-#include <pybind11/eigen.h>
 #include <pybind11/mdspan.h>
 #include <pybind11/stl.h>
+
+namespace pybind11::detail {
+
+template<typename T, ptrdiff_t N>
+struct type_caster<caesar::Vector<T, N>>
+    : array_caster<caesar::Vector<T, N>, T, false, N> {};
+
+} // namespace pybind11::detail
 
 namespace py = pybind11;
 

@@ -2,13 +2,12 @@
 
 #include "LinearSpace.hpp"
 #include "mdspan.hpp"
+#include "vector.hpp"
 
-#include <Eigen/Dense>
+#include <stdexcept>
 #include <vector>
 
 namespace caesar {
-
-using Vector6d = Eigen::Matrix<double, 6, 1>;
 
 double
 cubic_interpolate(const double a,
