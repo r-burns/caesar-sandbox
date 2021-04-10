@@ -30,8 +30,8 @@ lon_start = -122.52
 lat_start = 37.82
 lon_scale = cos(deg_to_rad(lat_start))
 
-x_res = int(360 * lon_scale)
-y_res = int(360)
+y_res = 600
+x_res = int(y_res * lon_scale)
 geocoded = numpy.zeros((y_res, x_res), dtype=numpy.float32)
 geocode_x = numpy.linspace(lon_start, lon_start + .25 * lon_scale, x_res)
 geocode_y = numpy.linspace(lat_start, lat_start - .25, y_res)
