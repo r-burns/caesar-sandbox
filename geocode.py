@@ -9,7 +9,7 @@ import os
 
 from alos_slc import AlosPalsarSlc
 from geo_to_rdr import llh_to_xyz
-from caesar import xyz_to_rdr
+from caesar import bilerp, xyz_to_rdr
 from core import LinearSpace, Interval
 
 dem = gdal.Open(os.path.expanduser("~/data/N37W123.hgt"))
@@ -22,7 +22,7 @@ radar_data = f.ReadAsArray()[0]
 print("done.")
 
 cs = slc.platform()
-dem_array = dem.ReadAsArray()
+dem_array = dem.ReadAsArray().astype(numpy.float32)
 
 deg_to_rad = lambda deg: deg * pi / 180
 
@@ -63,7 +63,7 @@ for y_idx, lat_deg in enumerate(tqdm(geocode_y)):
         if not dem_x_interval.half_open_contains(dem_x_idx):
             continue
 
-        hgt = dem_array[int(dem_y_idx), int(dem_x_idx)]
+        hgt = bilerp(dem_array, dem_x_idx, dem_y_idx)
 
         xyz = llh_to_xyz(lon_rad, lat_rad, hgt)
 
@@ -78,7 +78,7 @@ for y_idx, lat_deg in enumerate(tqdm(geocode_y)):
         if rng_idx < 0 or rng_idx >= f.RasterXSize:
             continue
 
-        geocoded[y_idx, x_idx] = numpy.abs(radar_data[int(azm_idx), int(rng_idx)])
+        geocoded[y_idx, x_idx] = numpy.abs(bilerp(radar_data, rng_idx, azm_idx))
 
 #pyplot.imsave("img.png", numpy.log(numpy.ma.array(geocoded, mask=(geocoded==0))))
 pyplot.imshow(numpy.log(numpy.ma.array(geocoded, mask=(geocoded==0))))
