@@ -39,7 +39,7 @@ public:
         }
 
         statevecs.resize(svflat.size() / 6);
-        for (int i = 0; i < statevecs.size(); i++) {
+        for (std::size_t i = 0; i < statevecs.size(); i++) {
             Vector6d posvel;
             for (int j = 0; j < 6; j++) {
                 posvel[j] = svflat[6 * i + j];
