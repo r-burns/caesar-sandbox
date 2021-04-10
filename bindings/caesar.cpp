@@ -1,4 +1,5 @@
 #include <caesar/Orbit.hpp>
+#include <caesar/xyz_to_rdr.hpp>
 
 #include <pybind11/eigen.h>
 #include <pybind11/mdspan.h>
@@ -16,4 +17,6 @@ PYBIND11_MODULE(caesar, m)
             .def("__call__", &Orbit::operator())
             .def("start_time", &Orbit::start_time)
             .def("end_time", &Orbit::end_time);
+
+    m.def("xyz_to_rdr", xyz_to_rdr);
 }

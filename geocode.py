@@ -8,7 +8,8 @@ import numpy
 import os
 
 from alos_slc import AlosPalsarSlc
-from geo_to_rdr import llh_to_xyz, xyz_to_rdr
+from geo_to_rdr import llh_to_xyz
+from caesar import xyz_to_rdr
 from core import LinearSpace, Interval
 
 dem = gdal.Open(os.path.expanduser("~/data/N37W123.hgt"))
