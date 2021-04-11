@@ -1,6 +1,7 @@
 from reader_l11 import get_platform, get_img_record, get_dataset_summary, segments
 import os
 from datetime import datetime, timedelta
+import caesar
 from caesar import Orbit
 import numpy
 
@@ -61,3 +62,8 @@ class AlosPalsarSlc:
         platform_start = (platform_start_utc - sensing_start_utc).total_seconds()
 
         return Orbit(platform_start, dt, posvel)
+
+    @staticmethod
+    def spheroid():
+        # ALOS orbits earth
+        return caesar.wgs84_ellipsoid

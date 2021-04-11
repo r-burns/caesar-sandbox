@@ -167,6 +167,26 @@ public:
         return not(lhs == rhs);
     }
 
+    [[nodiscard]] double
+    r_east(const double lat) const
+    {
+        // radius of spheroid in east direction
+        // assumes latitude-wise symmetry
+        const auto sin_lat = sin(lat);
+        return a() / std::sqrt(1. - squared_eccentricity() * sin_lat * sin_lat);
+    }
+
+    [[nodiscard]] Vector3d
+    llh_to_xyz(double lon, double lat, double hgt) const
+    {
+        const auto re = r_east(lat);
+        const auto x = (re + hgt) * cos(lat) * cos(lon);
+        const auto y = (re + hgt) * cos(lat) * sin(lon);
+        // adjust radius for eccentricity
+        const auto z = (re * (1. - squared_eccentricity()) + hgt) * sin(lat);
+        return Vector3d{{x, y, z}};
+    }
+
 private:
     double a_;
     double f_;

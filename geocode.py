@@ -8,7 +8,6 @@ import numpy
 import os
 
 from alos_slc import AlosPalsarSlc
-from geo_to_rdr import llh_to_xyz
 from caesar import bilerp, xyz_to_rdr
 from core import LinearSpace, Interval
 
@@ -23,6 +22,8 @@ print("done.")
 
 cs = slc.platform()
 dem_array = dem.ReadAsArray().astype(numpy.float32)
+
+spheroid = slc.spheroid()
 
 deg_to_rad = lambda deg: deg * pi / 180
 
@@ -65,7 +66,7 @@ for y_idx, lat_deg in enumerate(tqdm(geocode_y)):
 
         hgt = bilerp(dem_array, dem_x_idx, dem_y_idx)
 
-        xyz = llh_to_xyz(lon_rad, lat_rad, hgt)
+        xyz = spheroid.llh_to_xyz(lon_rad, lat_rad, hgt)
 
         azm, rng = xyz_to_rdr(xyz, cs)
         azm_idx = azm_space.index_of(azm)

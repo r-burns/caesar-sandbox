@@ -1,5 +1,6 @@
 #include <caesar/Orbit.hpp>
 #include <caesar/bilerp.hpp>
+#include <caesar/spheroid.hpp>
 #include <caesar/vector.hpp>
 #include <caesar/xyz_to_rdr.hpp>
 
@@ -32,4 +33,10 @@ PYBIND11_MODULE(caesar, m)
 
     m.def("bilerp", bilerp<float>);
     m.def("bilerp", bilerp<std::complex<float>>);
+
+    py::class_<Spheroid>(m, "Spheroid")
+            .def(py::init<double, double>())
+            .def("llh_to_xyz", &Spheroid::llh_to_xyz);
+
+    m.attr("wgs84_ellipsoid") = wgs84_ellipsoid;
 }

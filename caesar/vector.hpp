@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <cmath>
 
 namespace caesar {
@@ -16,6 +17,11 @@ public:
     [[nodiscard]] constexpr Vector(const T* data)
     {
         std::copy(data, data + N, data_);
+    }
+
+    [[nodiscard]] constexpr Vector(const std::array<T, N>& args)
+    {
+        std::copy(args.begin(), args.end(), data_);
     }
 
     [[nodiscard]] constexpr idx_t
